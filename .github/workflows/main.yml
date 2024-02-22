@@ -1,0 +1,23 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main # Set to your default branch, e.g., main or master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+
+      - name: Install Dependencies
+        run: npm install # Or yarn install, depending on your project
+
+      - name: Vercel Deploy
+        uses: amondnet/vercel-action@v20 # This action deploys your project to Vercel
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Set the Vercel token
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} # Your Vercel team ID (optional, required for team projects)
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} # Your Vercel project ID (optional, required for specific project deployments)
+          # Add other parameters as needed, check the action's documentation for more options
